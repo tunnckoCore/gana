@@ -50,6 +50,16 @@
   "keywords": [
     "gana"
   ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "standard": {
+    "ignore": [
+      "dist/**"
+    ]
+  },
   "verb": {
     "run": true,
     "toc": false,
@@ -57,11 +67,14 @@
     "tasks": [
       "readme"
     ],
-    "lint": {
-      "reflinks": true
-    },
     "related": {
-      "list": []
+      "list": [
+        "es6-template",
+        "octet",
+        "j140",
+        "engine-base",
+        "async-helpers"
+      ]
     },
     "reflinks": [
       "assemble",
@@ -73,16 +86,9 @@
       "templates",
       "update",
       "verb"
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+    ],
+    "lint": {
+      "reflinks": true
     }
-  },
-  "standard": {
-    "ignore": [
-      "dist/**"
-    ]
   }
 }
