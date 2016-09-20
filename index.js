@@ -8,6 +8,35 @@
 
 var isObject = require('isobject')
 
+/**
+ * > Compiles a `template` to a function, which
+ * accepts `locals` object to populate the template.
+ *
+ * **Example**
+ *
+ * ```js
+ * var gana = require('gana')
+ *
+ * var template = 'Welcome here, ${ucfirst(name)}! And have fun!'
+ * var locals = {
+ *   name: 'charlike',
+ *   ucfirst: function ucfirst (val) {
+ *     return val.charAt(0).toUpperCase() + val.slice(1)
+ *   }
+ * }
+ *
+ * var fn = gana(template)
+ * var str = fn(locals)
+ *
+ * console.log(str)
+ * // => 'Welcome here, Charlike! And have fun!'
+ * ```
+ *
+ * @param  {String} `template` string to compile to a function
+ * @return {Function} like `compileFn(locals)`, where `locals` must be `object`
+ * @api public
+ */
+
 module.exports = function gana (template) {
   if (typeof template !== 'string') {
     throw new TypeError('gana: expect `template` to be a string')
