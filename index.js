@@ -34,6 +34,9 @@ var isObject = require('isobject')
  *
  * @param  {String} `template` string to compile to a function
  * @return {Function} like `compileFn(locals)`, where `locals` must be `object`
+ * @throws {TypeError} if `template` not a string
+ * @throws {TypeError} if `locals` not an object
+ * @throws {ReferenceError} if key not exists in `locals` object
  * @api public
  */
 

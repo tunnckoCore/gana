@@ -37,13 +37,16 @@ npm i gana --save
 const gana = require('gana')
 ```
 
-### [gana](index.js#L40)
+### [gana](index.js#L43)
 > Compiles a `template` to a function, which accepts `locals` object to populate the template.
 
 **Params**
 
 * `template` **{String}**: string to compile to a function    
 * `returns` **{Function}**: like `compileFn(locals)`, where `locals` must be `object`  
+* `throws` **{TypeError}**: if `template` not a string  
+* `throws` **{TypeError}**: if `locals` not an object  
+* `throws` **{ReferenceError}**: if key not exists in `locals` object  
 
 **Example**
 
