@@ -1,7 +1,7 @@
 {
   "name": "gana",
   "version": "0.1.0",
-  "description": "Pretty small synchronous template engine built on es6 template strings, working on node@0.10 too. Just 20 lines of code without RegExps and with support for helpers and what you want.",
+  "description": "Pretty small synchronous template engine built on es6 template strings, working on `node@0.10` too. Just 20 lines of code without RegExps and with support for helpers and what you want.",
   "repository": "tunnckoCore/gana",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
   "precommit.silent": true,
@@ -10,9 +10,9 @@
   "scripts": {
     "prebuild": "npm install && npm test && mkdirp dist",
     "build": "npm run bundle && npm run standalone",
-    "bundle": "browserify -dr ./index.js:es6template -o dist/gana.js",
+    "bundle": "browserify -dr ./index.js:gana -o dist/gana.js",
     "postbundle": "uglifyjs dist/gana.js -m -c -o dist/gana.min.js",
-    "standalone": "browserify -ds es6template index.js -o dist/gana.standalone.js",
+    "standalone": "browserify -ds gana index.js -o dist/gana.standalone.js",
     "poststandalone": "uglifyjs dist/gana.standalone.js -m -c -o dist/gana.standalone.min.js",
     "lint": "standard --verbose",
     "pretest": "npm run lint",
