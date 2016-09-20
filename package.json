@@ -14,6 +14,7 @@
     "postbundle": "uglifyjs dist/gana.js -m -c -o dist/gana.min.js",
     "standalone": "browserify -ds gana index.js -o dist/gana.standalone.js",
     "poststandalone": "uglifyjs dist/gana.standalone.js -m -c -o dist/gana.standalone.min.js",
+    "prelint": "npm install",
     "lint": "standard --verbose",
     "pretest": "npm run lint",
     "test": "npm run coverage",
@@ -43,7 +44,8 @@
     "uglify-js": "^2.7.3"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "dist/"
   ],
   "keywords": [
     "gana"
@@ -63,5 +65,10 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "standard": {
+    "ignore": [
+      "dist/**"
+    ]
   }
 }
