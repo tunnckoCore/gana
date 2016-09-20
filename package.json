@@ -59,7 +59,21 @@
     ],
     "lint": {
       "reflinks": true
-    }
+    },
+    "related": {
+      "list": []
+    },
+    "reflinks": [
+      "assemble",
+      "engine",
+      "engine-base",
+      "engine-cache",
+      "generate",
+      "standard",
+      "templates",
+      "update",
+      "verb"
+    ]
   },
   "config": {
     "commitizen": {
