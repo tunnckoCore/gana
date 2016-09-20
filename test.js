@@ -72,3 +72,61 @@ test('should also work if `this` is used in template', function (done) {
   test.strictEqual(rendered, 'that is awesome template engine')
   done()
 })
+
+test('should access values from an array', function (done) {
+  var tpl = 'Values of foo array are: ${foo[0]}, ${foo[1]} and ${foo[2]}'
+  var str = gana(tpl)({
+    foo: [
+      'bar',
+      'baz',
+      'qux'
+    ]
+  })
+  var expected = 'Values of foo array are: bar, baz and qux'
+  test.strictEqual(str, expected)
+  done()
+})
+
+test('should work with nesting (access values of nested object)', function (done) {
+  var tpl = 'Hello ${author.first} in ${place}! Your last name is ${author.last}'
+  var str = gana(tpl)({
+    author: {
+      first: 'Charlike',
+      last: 'Reagent'
+    },
+    place: 'our world'
+  })
+  var expected = 'Hello Charlike in our world! '
+  expected += 'Your last name is Reagent'
+
+  test.strictEqual(str, expected)
+  done()
+})
+
+test('should have support for helpers', function (done) {
+  var tpl = 'Hello ${ucfirst(author.name)}, my ${friend}!'
+  var str = gana(tpl)({
+    author: {
+      name: 'charlike'
+    },
+    friend: 'nigga',
+    ucfirst: function ucfirst (val) {
+      return val.charAt(0).toUpperCase() + val.slice(1)
+    }
+  })
+
+  test.strictEqual(str, 'Hello Charlike, my nigga!')
+  done()
+})
+
+test('should have support for partials', function (done) {
+  var homePage = gana('<h1>${pageName}</h1>')
+  var compile = gana('<p>layout including home</p><p>${home(this)}</p>')
+  var str = compile({
+    home: homePage,
+    pageName: 'Home Page!'
+  })
+
+  test.strictEqual(str, '<p>layout including home</p><p><h1>Home Page!</h1></p>')
+  done()
+})
