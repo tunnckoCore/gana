@@ -1,7 +1,7 @@
 {
   "name": "gana",
   "version": "1.0.2",
-  "description": "Pretty small synchronous template engine built on es6 template strings, working on `node@0.10` too. Just 20 lines of code without RegExps and with support for helpers and what you want.",
+  "description": "Small and powerful template engine with only sync and async compile. The mid-level between [es6-template][] and [gana-compile][].",
   "repository": "tunnckoCore/gana",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
   "precommit.silent": true,
@@ -71,6 +71,7 @@
     "related": {
       "list": [
         "es6-template",
+        "gana-compile",
         "octet",
         "j140",
         "engine-base",
@@ -86,7 +87,10 @@
       "standard",
       "templates",
       "update",
-      "verb"
+      "verb",
+      "es6-template",
+      "gana",
+      "gana-compile"
     ],
     "lint": {
       "reflinks": true

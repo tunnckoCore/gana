@@ -1,29 +1,31 @@
 # [gana][author-www-url] [![npmjs.com][npmjs-img]][npmjs-url] [![The MIT License][license-img]][license-url] [![npm downloads][downloads-img]][downloads-url] 
 
-> Pretty small synchronous template engine built on es6 template strings, working on `node@0.10` too. Just 20 lines of code without RegExps and with support for helpers and what you want.
+> Small and powerful template engine with only sync and async compile. The mid-level between [es6-template][] and [gana-compile][].
 
 [![code climate][codeclimate-img]][codeclimate-url] [![standard code style][standard-img]][standard-url] [![travis build status][travis-img]][travis-url] [![coverage status][coveralls-img]][coveralls-url] [![dependency status][david-img]][david-url]
 
-You might also be interested in [es6-template][] (>= v2), which is higher level of `gana` adding async support, `.render` and `.compile` methods.
+You might also be interested:
+- [es6-template][] - higher level than `gana` and `gana-compile`, which does the render, adds `.render` and `.compile` methods.
+- [gana-compile][] - lower level than `gana`, which does only synchronous compile.
 
 ## Background
 
 **Uses the "bad" `new Function` thing**
 
-I don't think that's a problem, because other template engines out there also uses some kind of `eval` and it is used massively, believe. Most of them uses `eval`, most of them uses `with`, others of them uses `RegExp`s and etc. They all are with custom non-standard delimiters. They do too much to accomplish same results as `gana`. They requires too big codebase - and finally what, they still uses some of the "bad" things in JS.
+I don't think that's a problem, because other template engines out there also uses some kind of `eval` and it is used massively, believe. Most of them uses `eval`, most of them uses `with`, others of them uses `RegExp`s and etc. They all are with custom non-standard delimiters. They do too much to accomplish same results as `gana`. They requires too big codebase - and finally what, they still uses some of the "bad" things in JS.  
+In other side, `gana-compile` (which is behind this package) uses **only** new Function and nothing more. The whole thing is just 3-5 lines of code.
 
-**Biggest names uses "bad" things too**
+**Biggest names uses "bad" things, too**
 
-Names such [verb][], [update][], [templates][], [generate][], [assemble][] in our community uses [engine][] - respectively [engine-base][] and/or [engine-cache][]. Not to mention some of the most famous "real" template engines with features like partials, helpers and etc. You can have partials and helpers here in `gana` too.
+Names such [verb][], [update][], [templates][], [generate][], [assemble][] in our community uses [engine][] / [engine-base][] / [engine-cache][] - `engine` uses `with`, `new Function` and `RegExp`. Not to mention some of the most famous "real" template engines with features like partials, helpers and etc. You can have partials and helpers here in `gana` too. The most awesome thing of the `engine` that is used by `verb` and `assemble` is they can have **asynchronous helpers** - that's awesome, really! But if you will use bad things anyway, the core logic can be done a lot easier, with a lot smaller codebase.
 
 **Tricking magic**
 
-Behind the scenes `gana` uses [ES2015 (ES6) template strings](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/template_strings) inside the bad `new Function` which seems to **work even in `node@0.10`** which don't have support for Template Strings! That's strange, but it works and give us that awesome and small codebase (**1.39kb, minified and not gzipped**) - without any costs.  
-You just pass normal string `'foo ${bar} and baz'` and then `{ bar: 'bar' }` in the returned function.
+Behind the scenes `gana` / `gana-compile` uses [ES2015 (ES6) template strings](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/template_strings) inside the bad `new Function` which seems to **work even in `node@0.10`** which don't have support for Template Strings! That's strange, but it works and give us that awesome and small codebase without any costs. You just pass normal string `'foo ${bar} and baz'` and then `{ bar: 'bar' }` in the returned function.
 
 **Note about [standard][] (>= v8) users**
 
-Recently [standard][] added rule that ban usage of `${}` in normal `''` strings. So be awere of that and add `/* eslint-disable no-template-curly-in-string */` comment before your stuff to get things working without problems.
+Recently in [standard][] was added rule that ban usage of `${}` in normal `''` strings. So be awere of that and add `/* eslint-disable no-template-curly-in-string */` comment before your stuff to get things working without problems.
 
 ## Install
 ```
@@ -37,41 +39,11 @@ npm i gana --save
 const gana = require('gana')
 ```
 
-### [gana](index.js#L43)
-> Compiles a `template` to a function, which accepts `locals` object to populate the template.
-
-**Params**
-
-* `template` **{String}**: string to compile to a function    
-* `returns` **{Function}**: like `compileFn(locals)`, where `locals` must be `object`  
-* `throws` **{TypeError}**: if `template` not a string  
-* `throws` **{TypeError}**: if `locals` not an object  
-* `throws` **{ReferenceError}**: if key not exists in `locals` object  
-
-**Example**
-
-```js
-var gana = require('gana')
-
-var template = 'Welcome here, ${ucfirst(name)}! And have fun!'
-var locals = {
-  name: 'charlike',
-  ucfirst: function ucfirst (val) {
-    return val.charAt(0).toUpperCase() + val.slice(1)
-  }
-}
-
-var fn = gana(template)
-var str = fn(locals)
-
-console.log(str)
-// => 'Welcome here, Charlike! And have fun!'
-```
-
 ## Related
 - [async-helpers](https://www.npmjs.com/package/async-helpers): Use async helpers in templates with engines that typically only handle sync… [more](https://github.com/doowb/async-helpers) | [homepage](https://github.com/doowb/async-helpers "Use async helpers in templates with engines that typically only handle sync helpers. Handlebars and Lodash have been tested.")
 - [engine-base](https://www.npmjs.com/package/engine-base): Default engine for Template. | [homepage](https://github.com/jonschlinkert/engine-base "Default engine for Template.")
 - [es6-template](https://www.npmjs.com/package/es6-template): Easy and small template engine for the browser and nodejs. | [homepage](https://github.com/tunnckocore/es6-template#readme "Easy and small template engine for the browser and nodejs.")
+- [gana-compile](https://www.npmjs.com/package/gana-compile): Pretty small synchronous template engine built on ES2015 Template Strings, working on… [more](https://github.com/tunnckocore/gana-compile#readme) | [homepage](https://github.com/tunnckocore/gana-compile#readme "Pretty small synchronous template engine built on ES2015 Template Strings, working on `node@0.10` too. No RegExps, support for helpers and what you want. Use [gana][] if you wanna both async and sync support.")
 - [j140](https://www.npmjs.com/package/j140): Template engine in 140 bytes, by @jed Schmidt. Support helpers, partials and… [more](https://github.com/tunnckocore/j140#readme) | [homepage](https://github.com/tunnckocore/j140#readme "Template engine in 140 bytes, by @jed Schmidt. Support helpers, partials and pre-compiled templates. For nodejs and the browser. Browserify-ready.")
 - [octet](https://www.npmjs.com/package/octet): 1kb template engine for the browser and nodejs. Support helpers, partials and… [more](https://github.com/tunnckocore/octet#readme) | [homepage](https://github.com/tunnckocore/octet#readme "1kb template engine for the browser and nodejs. Support helpers, partials and more. Used in AbsurdJS.")
 
@@ -87,6 +59,9 @@ But before doing anything, please read the [CONTRIBUTING.md](./CONTRIBUTING.md) 
 [engine-base]: https://github.com/jonschlinkert/engine-base
 [engine-cache]: https://github.com/jonschlinkert/engine-cache
 [engine]: https://github.com/jonschlinkert/engine
+[es6-template]: https://github.com/tunnckocore/es6-template
+[gana-compile]: https://github.com/tunnckocore/gana-compile
+[gana]: https://github.com/tunnckocore/gana
 [generate]: https://github.com/generate/generate
 [standard]: http://standardjs.com
 [templates]: https://github.com/jonschlinkert/templates
@@ -138,4 +113,3 @@ But before doing anything, please read the [CONTRIBUTING.md](./CONTRIBUTING.md) 
 [new-message-url]: https://github.com/tunnckoCore/ama
 [new-message-img]: https://img.shields.io/badge/ask%20me-anything-green.svg
 
-[es6-template]: https://github.com/tunnckocore/es6-template
