@@ -131,10 +131,43 @@ test('should have support for partials', function (done) {
   done()
 })
 
-test('should be able to accept callback function', function (done) {
+test('async: should be able to accept callback function', function (done) {
   gana('Hello, ${name}!', function (err, fn) {
     test.ifError(err)
     test.strictEqual(fn({ name: 'Hero' }), 'Hello, Hero!')
+    done()
+  })
+})
+
+test('async: should callback get TypeError if `template` not a string', function (done) {
+  gana(123, function cb (err) {
+    test.ifError(!err)
+    test.strictEqual(err.name, 'TypeError')
+    test.ok(/expect `template` to be a string/.test(err.message))
+    done()
+  })
+})
+
+test('async: compileFn should TypeError if `locals` not an object', function (done) {
+  gana('Welcome ${here}, have fun.', function (err, compileFn) {
+    test.ifError(err)
+    function fixture () {
+      compileFn(123)
+    }
+    test.throws(fixture, TypeError)
+    test.throws(fixture, /expect `locals` to be an object/)
+    done()
+  })
+})
+
+test('async: compileFn should ReferenceError if not in `locals` object', function (done) {
+  gana('Welcome ${name}, have fun.', function (err, compileFn) {
+    test.ifError(err)
+    function fixture () {
+      compileFn({ foo: 'bar' })
+    }
+    test.throws(fixture, ReferenceError)
+    test.throws(fixture, /is not defined/)
     done()
   })
 })

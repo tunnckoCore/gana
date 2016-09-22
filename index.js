@@ -7,7 +7,7 @@
 
 'use strict'
 
-var utils = require('./utils')
+var ganaCompile = require('gana-compile')
 
 /**
  * > Sync and async compile, using `${}` delimiters
@@ -53,10 +53,29 @@ var utils = require('./utils')
 
 module.exports = function gana (template, cb) {
   if (typeof cb === 'function') {
-    utils.tryCatchCore(function () {
-      return utils.ganaCompile(template)
+    tryCatch(function () {
+      return ganaCompile(template)
     }, cb)
     return
   }
-  return utils.ganaCompile(template)
+  return ganaCompile(template)
+}
+
+/**
+ * try/catch block with callback
+ *
+ * @param  {Function} `fn`
+ * @param  {Function} `cb`
+ * @api private
+ */
+
+function tryCatch (fn, cb) {
+  var ret = null
+  try {
+    ret = fn()
+  } catch (err) {
+    cb(err)
+    return
+  }
+  cb(null, ret)
 }

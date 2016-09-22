@@ -27,8 +27,7 @@
     "commit": "git-cz"
   },
   "dependencies": {
-    "gana-compile": "^1.0.1",
-    "try-catch-core": "^1.0.1"
+    "gana-compile": "^1.0.1"
   },
   "devDependencies": {
     "browserify": "^13.1.0",
@@ -45,8 +44,7 @@
   },
   "files": [
     "dist/",
-    "index.js",
-    "utils.js"
+    "index.js"
   ],
   "keywords": [
     "gana"
