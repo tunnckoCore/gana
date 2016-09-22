@@ -16,7 +16,7 @@ test('should throw TypeError if `template` not a string', function (done) {
     gana(123)
   }
   test.throws(fixture, TypeError)
-  test.throws(fixture, /gana: expect `template` to be a string/)
+  test.throws(fixture, /expect `template` to be a string/)
   done()
 })
 
@@ -25,7 +25,7 @@ test('should throw TypeError if `locals` not an object', function (done) {
     gana('foo ${bar} baz')(5555)
   }
   test.throws(fixture, TypeError)
-  test.throws(fixture, /gana: expect `locals` to be an object/)
+  test.throws(fixture, /expect `locals` to be an object/)
   done()
 })
 
@@ -37,7 +37,7 @@ test('should throw TypeError if `locals` is an array', function (done) {
     ])
   }
   test.throws(fixture, TypeError)
-  test.throws(fixture, /gana: expect `locals` to be an object/)
+  test.throws(fixture, /expect `locals` to be an object/)
   done()
 })
 
@@ -129,4 +129,12 @@ test('should have support for partials', function (done) {
 
   test.strictEqual(str, '<p>layout including home</p><p><h1>Home Page!</h1></p>')
   done()
+})
+
+test('should be able to accept callback function', function (done) {
+  gana('Hello, ${name}!', function (err, fn) {
+    test.ifError(err)
+    test.strictEqual(fn({ name: 'Hero' }), 'Hello, Hero!')
+    done()
+  })
 })
