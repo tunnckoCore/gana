@@ -8,6 +8,7 @@
 'use strict'
 
 var ganaCompile = require('gana-compile')
+var tryCatch = require('try-catch-callback')
 
 /**
  * > Sync and async compile, using `${}` delimiters
@@ -59,23 +60,4 @@ module.exports = function gana (template, cb) {
     return
   }
   return ganaCompile(template)
-}
-
-/**
- * try/catch block with callback
- *
- * @param  {Function} `fn`
- * @param  {Function} `cb`
- * @api private
- */
-
-function tryCatch (fn, cb) {
-  var ret = null
-  try {
-    ret = fn()
-  } catch (err) {
-    cb(err)
-    return
-  }
-  cb(null, ret)
 }
