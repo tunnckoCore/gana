@@ -1,6 +1,6 @@
 {
   "name": "gana",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Small and powerful template engine with only sync and async compile. The mid-level between [es6-template][] and [gana-compile][].",
   "repository": "tunnckoCore/gana",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
