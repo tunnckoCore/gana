@@ -39,6 +39,47 @@ npm i gana --save
 const gana = require('gana')
 ```
 
+### [gana](index.js#L54)
+> Sync and async compile, using `${}` delimiters and ES2015 Template Strings. Workin' on node@0.10 too.
+
+**Params**
+
+* `<template>` **{String}**: template to compile.    
+* `[cb]` **{Function}**: optional, function with `cb(err, compileFn)` signature.    
+* `returns` **{Function}**: if no `cb`, returns `compileFn` that accept object.  
+
+**Example**
+
+```js
+var gana = require('gana')
+
+var template = 'Hello, ${ucfirst(author.name)}! Welcome in our ${place}.'
+var locals = {
+  author: {
+    name: 'charlike'
+  },
+  place: 'club',
+  ucfirst: function ucfirst (val) {
+    return val.charAt(0).toUpperCase() + val.slice(1)
+  }
+}
+
+// sync
+var compileFn = gana(template)
+var result = compileFn(locals)
+console.log(result)
+// => 'Hello, Charlike! Welcome in our club.'
+
+// asynchronous
+gana(template, function callback (err, compileFn) {
+  if (err) return console.error(err)
+
+  var result = compileFn(locals)
+  console.log(result)
+  // => 'Hello, Charlike! Welcome in our club.'
+})
+```
+
 ## Related
 - [async-helpers](https://www.npmjs.com/package/async-helpers): Use async helpers in templates with engines that typically only handle sync… [more](https://github.com/doowb/async-helpers) | [homepage](https://github.com/doowb/async-helpers "Use async helpers in templates with engines that typically only handle sync helpers. Handlebars and Lodash have been tested.")
 - [engine-base](https://www.npmjs.com/package/engine-base): Default engine for Template. | [homepage](https://github.com/jonschlinkert/engine-base "Default engine for Template.")
